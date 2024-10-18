@@ -6,8 +6,6 @@ public class task3
     public static void main(String[] args)
     {
         //3 задание. максимальная сумма подмассива
-        // Напишите метод, который принимает массив целых чисел и возвращает максимальную
-        //сумму подмассива (последовательных элементов).
         Scanner scan = new Scanner(System.in);
         System.out.println("Задание №3");
         System.out.print("Введите длину массива: ");
