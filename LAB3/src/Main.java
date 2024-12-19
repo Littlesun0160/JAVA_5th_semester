@@ -22,8 +22,9 @@ public class Main {
             System.out.println();
 
             System.out.println("Управление:");
-            System.out.println("----row ol row1 col1: Ход фигуры из кретки (row, col) в (row1, col1)");
-
+            System.out.println("----row ol row1 col1: Ход фигуры из клетки (row, col) в (row1, col1)");
+            System.out.println("Взятые Белые: " + board.getTakeWhite().toString() );
+            System.out.println("Взятые Черные: " + board.getTakeBlack().toString());
             switch (board.getColorGame()){
                 case 'w': System.out.println("Ход белых"); break;
                 case 'b': System.out.println("Ход черных"); break;
