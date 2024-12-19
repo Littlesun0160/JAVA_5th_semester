@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce4f3fb9-b4fd-4efd-a6e4-15686aae0f4d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Figures/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Figures/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Figures/Figure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Figures/Figure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Figures/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Figures/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Figures/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Figures/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Figures/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Figures/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Figures/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Figures/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Figures/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Figures/Rook.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
