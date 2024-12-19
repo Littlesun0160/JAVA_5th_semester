@@ -21,11 +21,13 @@ public class Board {
 
     private char colorGame;
 
-    public void setColorGame(char colorGame) {
+    public void setColorGame(char colorGame)
+    {
         this.colorGame = colorGame;
     }
 
-    public  char getColorGame(){
+    public  char getColorGame()
+    {
         return colorGame;
     }
 

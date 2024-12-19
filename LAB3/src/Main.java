@@ -17,20 +17,20 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
 
-        while (isGame){
+        while (isGame)
+        {
             board.print_board();
             System.out.println();
 
-            System.out.println("Управление:");
-            System.out.println("----row ol row1 col1: Ход фигуры из клетки (row, col) в (row1, col1)");
             System.out.println("Взятые Белые: " + board.getTakeWhite().toString() );
             System.out.println("Взятые Черные: " + board.getTakeBlack().toString());
-            switch (board.getColorGame()){
-                case 'w': System.out.println("Ход белых"); break;
-                case 'b': System.out.println("Ход черных"); break;
+            switch (board.getColorGame())
+            {
+                case 'w': System.out.println("Ход белых: ");
+                break;
+                case 'b': System.out.println("Ход черных: ");
+                break;
             }
-
-            System.out.print("Введите ход: ");
 
             String inputLine = in.nextLine();
             int row, col, row1, col1;
@@ -40,9 +40,16 @@ public class Main {
             row1 = Integer.parseInt(coords[2]);
             col1 = Integer.parseInt(coords[3]);
 
-            while (!board.move_figure(row, col, row1, col1)){
-                System.out.println("Ошибка! Повторите ход фигуры!");
-                System.out.print("Введите ход: ");
+            while (!board.move_figure(row, col, row1, col1))
+            {
+                System.out.println("Такого хода не существует! Измените ход.");
+                switch (board.getColorGame())
+                {
+                    case 'w': System.out.println("Ход белых: ");
+                        break;
+                    case 'b': System.out.println("Ход черных: ");
+                        break;
+                }
                 inputLine = in.nextLine();
                 coords = inputLine.split(" ");
                 row = Integer.parseInt(coords[0]);
@@ -51,12 +58,14 @@ public class Main {
                 col1 = Integer.parseInt(coords[3]);
             }
 
-            switch (board.getColorGame()){
-                case 'w': board.setColorGame('b');break;
-                case 'b': board.setColorGame('w');break;
+            switch (board.getColorGame())
+            {
+                case 'w': board.setColorGame('b');
+                break;
+                case 'b': board.setColorGame('w');
+                break;
             }
         }
-        //test
 
     }
 }
