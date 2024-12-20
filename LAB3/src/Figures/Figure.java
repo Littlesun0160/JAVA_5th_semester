@@ -34,7 +34,8 @@ public abstract class Figure
                 (col!=col1) && (row!=row1);
     }
 
-    public boolean canAttack(int row, int col, int row1, int col1){
+    public boolean canAttack(int row, int col, int row1, int col1)
+    {
         return this.canMove(row, col, row1, col1);
     }
 }

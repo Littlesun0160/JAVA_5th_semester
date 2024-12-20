@@ -40,6 +40,18 @@ public class Main {
             row1 = Integer.parseInt(coords[2]);
             col1 = Integer.parseInt(coords[3]);
 
+            if (board.isCheck())
+            {
+                switch (board.getCheckColor())
+                {
+                    case 'w': System.out.println("Ход белых: ");
+                        break;
+                    case 'b': System.out.println("Ход черных: ");
+                        break;
+                }
+                System.out.println("Объявлен шах ")
+            }
+
             while (!board.move_figure(row, col, row1, col1))
             {
                 System.out.println("Такого хода не существует! Измените ход.");

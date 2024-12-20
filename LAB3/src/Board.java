@@ -1,6 +1,7 @@
 import Figures.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Board
 {
@@ -88,7 +89,6 @@ public class Board
 
     public boolean canMoveOnBoard(int row, int col, int row1, int col1)
     {
-        // TODO Реализация проверки препятствия на пути фигуры
         //Проверим, выбрал ли игрок свою фигуру
         if (fields[row][col] == null || fields[row][col].getColor() != colorGame)
             return false;
@@ -117,32 +117,124 @@ public class Board
                     return false;
                 }
             case "Q":
-
+                if (row==row1)
+                {
+                    for (int i = Math.min(col,col1)+1; i < Math.max(col,col1); i++)
+                    {
+                        if (fields[row][i] != null)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else if (col==col1)
+                {
+                    for (int i = Math.min(row,row1)+1; i < Math.max(row,row1); i++)
+                    {
+                        if (fields[i][col] != null)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i < Math.abs(row - row1); i++)
+                    {
+                        if ((fields[row + i][col + i] != null && row < row1 && col < col1) ||
+                                (fields[row - i][col + i] != null && row > row1 && col > col1) ||
+                                (fields[row + i][col - i] != null && row < row1 && col > col1) ||
+                                (fields[row - i][col - i] != null && row > row1 && col > col1))
+                        {
+                            return false;
+                        }
+                    }
+                }
             case "R":
+                if (row==row1)
+                {
+                    for (int i = Math.min(col,col1)+1; i < Math.max(col,col1); i++)
+                    {
+                        if (fields[row][i] != null)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else if (col==col1)
+                {
+                    for (int i = Math.min(row,row1)+1; i < Math.max(row,row1); i++)
+                    {
+                        if (fields[i][col] != null)
+                        {
+                            return false;
+                        }
+                    }
+                }
         }
         return true;
     }
-    public boolean isCheck(){
-        return false;
-    }
-    public boolean isMate(){
-        return false;
-    }
-    public boolean move_figure(int row, int col, int row1, int col1){
-      Figure figure = this.fields[row][col];
-      if (figure != null && figure.canMove(row, col, row1, col1) && this.fields[row1][col1] == null && figure.getColor() == this.colorGame){
-          this.fields[row1][col1] = figure;
-          this.fields[row][col] = null;
-          return true;
-      }else  if (figure.canAttack(row, col, row1, col1) && this.fields[row1][col1] != null && this.fields[row1][col1].getColor() != this.fields[row][col].getColor()){
-          this.fields[row1][col1] = figure;
-          this.fields[row][col] = null;
 
-          switch (this.fields[row1][col1].getColor()){
-              case 'w': this.takeWhite.add(this.fields[row1][col1].getColor() + this.fields[row1][col1].getName()); break;
-              case 'b': this.takeBlack.add(this.fields[row1][col1].getColor() + this.fields[row1][col1].getName()); break;
-          }
+    private final int[] BlackKing = {7,4};
+    private final int[] WhiteKing = {0,4};
+    public void ChangeKingCoord(int row, int col)
+    {
+        if (colorGame == 'b')
+        {
+            BlackKing[0] = row;
+            BlackKing[1] = col;
+        } else {
+            WhiteKing[0] = row;
+            WhiteKing[1] = col;
+        }
+    }
+    public boolean isCheck()
+    {
+        for (int row = 0; row < fields.length; row++)
+        {
+            for (int col = 0; col < fields[0].length; col++)
+            {
+
+            }
+        }
+    }
+    public char getCheckColor()
+    {
+
+    }
+    public boolean isMate()
+    {
+        return false;
+    }
+    public boolean move_figure(int row, int col, int row1, int col1)
+    {
+      Figure figure = this.fields[row][col];
+
+      if (figure != null && figure.canMove(row, col, row1, col1) &&
+              this.fields[row1][col1] == null && figure.getColor() == this.colorGame)
+      {
+          if (Objects.equals(figure.getName(), "K"))
+              ChangeKingCoord(row1,col1);
+          this.fields[row1][col1] = figure;
+          this.fields[row][col] = null;
           return true;
+      }else
+      {
+          if (figure != null && figure.canAttack(row, col, row1, col1) && this.fields[row1][col1] != null &&
+                  !Objects.equals(this.fields[row1][col1].getName(), "K") &&
+                  this.fields[row1][col1].getColor() != this.fields[row][col].getColor())
+          {
+              switch (this.fields[row1][col1].getColor())
+              {
+                  case 'w': this.takeWhite.add(this.fields[row1][col1].getColor() + this.fields[row1][col1].getName()); break;
+                  case 'b': this.takeBlack.add(this.fields[row1][col1].getColor() + this.fields[row1][col1].getName()); break;
+              }
+              if (Objects.equals(figure.getName(), "K"))
+                  ChangeKingCoord(row1,col1);
+              this.fields[row1][col1] = figure;
+              this.fields[row][col] = null;
+              return true;
+          }
       }
         return false;
     }
