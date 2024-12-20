@@ -20,11 +20,8 @@ public class Pawn extends Figure
         }
         else
         {
-            if ((((row+1==row1)) && this.getColor()=='w') ||
-                    (((row-1==row1)) && this.getColor()=='b')&& (col==col1))
-            {
-                return true;
-            }
+            return (((row + 1 == row1)) && this.getColor() == 'w') ||
+                    (((row - 1 == row1)) && this.getColor() == 'b') && (col == col1);
         }
         return false;
     }

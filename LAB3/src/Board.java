@@ -101,10 +101,10 @@ public class Board
             case "B":
                 for (int i = 1; i < Math.abs(row - row1); i++)
                 {
-                    if ((fields[row + i][col + i] != null && row < row1 && col < col1) ||
-                            (fields[row - i][col + i] != null && row > row1 && col > col1) ||
-                            (fields[row + i][col - i] != null && row < row1 && col > col1) ||
-                            (fields[row - i][col - i] != null && row > row1 && col > col1))
+                    if (((row < row1 && col < col1 && fields[row + i][col + i] != null) ||
+                            (row > row1 && col < col1 && fields[row - i][col + i] != null) ||
+                            (row < row1 && col > col1 && fields[row + i][col - i] != null) ||
+                            (row > row1 && col > col1 && fields[row - i][col - i] != null)))
                     {
                         return false;
                     }
@@ -138,13 +138,13 @@ public class Board
                     }
                 }
                 else
-                {
+                {//7,3 - 3,7     i=1,4
                     for (int i = 1; i < Math.abs(row - row1); i++)
                     {
-                        if ((fields[row + i][col + i] != null && row < row1 && col < col1) ||
-                                (fields[row - i][col + i] != null && row > row1 && col > col1) ||
-                                (fields[row + i][col - i] != null && row < row1 && col > col1) ||
-                                (fields[row - i][col - i] != null && row > row1 && col > col1))
+                        if ((row < row1 && col < col1 && fields[row + i][col + i] != null) ||
+                                (row > row1 && col < col1 && fields[row - i][col + i] != null) ||
+                                (row < row1 && col > col1 && fields[row + i][col - i] != null) ||
+                                (row > row1 && col > col1 && fields[row - i][col - i] != null))
                         {
                             return false;
                         }
@@ -234,33 +234,36 @@ public class Board
         {
             for (int j=CheckKing[1]-1; j<=CheckKing[1]+1; j++)
             {
-                //Предположим, что есть пустая клетка, куда может уйти король
-                if (fields[i][j] == null)
+                if(i>=0 && i<8 && j>=0 && j<8)
                 {
-                    //В move_figure симулируем переход короля на (i,j) и проверяем
-                    //остался ли шах. Если нет, то фигура короля перемещена
-                    if (move_figure(CheckKing[0], CheckKing[1], i, j))
+                    //Предположим, что есть пустая клетка, куда может уйти король
+                    if (fields[i][j] == null)
                     {
-                        //Перемещаем короля обратно и говорим, что мата нет
-                        move_figure(i,j,CheckKing[0],CheckKing[1]);
-                        return false;
-                    }
-                }
-                //Проверим, может ли король скушать какую-то фигуру
-                else if (fields[i][j] != null)
-                {
-                    Figure TempFig = fields[i][j];
-                    if (move_figure(CheckKing[0], CheckKing[1], i, j))
-                    {
-                        //Если мы смогли что-то скушать, и шаха нет, то отменяем ход и говорим что мата нет
-                        switch (TempFig.getColor())
+                        //В move_figure симулируем переход короля на (i, j) и проверяем
+                        //остался ли шах. Если нет, то фигура короля перемещена
+                        if (move_figure(CheckKing[0], CheckKing[1], i, j))
                         {
-                            case 'w': this.takeWhite.remove(TempFig.getColor() + TempFig.getName()); break;
-                            case 'b': this.takeBlack.remove(TempFig.getColor() + TempFig.getName()); break;
+                            //Перемещаем короля обратно и говорим, что мата нет
+                            move_figure(i,j,CheckKing[0],CheckKing[1]);
+                            return false;
                         }
-                        move_figure(i, j, CheckKing[0], CheckKing[1]);
-                        this.fields[i][j] = TempFig;
-                        return false;
+                    }
+                    //Проверим, может ли король скушать какую-то фигуру
+                    else if (fields[i][j] != null)
+                    {
+                        Figure TempFig = fields[i][j];
+                        if (move_figure(CheckKing[0], CheckKing[1], i, j))
+                        {
+                            //Если мы смогли что-то скушать, и шаха нет, то отменяем ход и говорим что мата нет
+                            switch (TempFig.getColor())
+                            {
+                                case 'w': this.takeWhite.remove(TempFig.getColor() + TempFig.getName()); break;
+                                case 'b': this.takeBlack.remove(TempFig.getColor() + TempFig.getName()); break;
+                            }
+                            move_figure(i, j, CheckKing[0], CheckKing[1]);
+                            this.fields[i][j] = TempFig;
+                            return false;
+                        }
                     }
                 }
 
@@ -279,7 +282,20 @@ public class Board
                     {
                         for (int m=0; m<8; m++)
                         {
-                            
+                            //Предположим, что есть клетка, куда может уйти наша фигура, тем самым защитив короля
+                            Figure TempFig = fields[k][m];
+                            if (i!=k && j!=m && fields[i][j].canMove(i,j,k,m) && canMoveOnBoard(i,j,k,m) && move_figure(i, j, k, m))
+                            {
+                                //Если мы смогли что-то скушать, и шаха нет, то отменяем ход и говорим что мата нет
+                                switch (TempFig.getColor())
+                                {
+                                    case 'w': this.takeWhite.remove(TempFig.getColor() + TempFig.getName()); break;
+                                    case 'b': this.takeBlack.remove(TempFig.getColor() + TempFig.getName()); break;
+                                }
+                                move_figure(k, m, i, j);
+                                this.fields[k][m] = TempFig;
+                                return false;
+                            }
                         }
                     }
                 }
@@ -297,14 +313,16 @@ public class Board
       {
           this.fields[row1][col1] = figure;
           this.fields[row][col] = null;
+          if (Objects.equals(figure.getName(), "K"))
+              ChangeKingCoord(row1,col1);
           if (isCheck(this.colorGame))
           {
               this.fields[row][col] = figure;
               this.fields[row1][col1] = null;
+              if (Objects.equals(figure.getName(), "K"))
+                  ChangeKingCoord(row,col);
               return false;
           }
-          if (Objects.equals(figure.getName(), "K"))
-              ChangeKingCoord(row1,col1);
           return true;
       }else if (figure != null && fields[row][col].getColor() == colorGame && figure.canAttack(row, col, row1, col1) && this.fields[row1][col1] != null &&
                   !Objects.equals(this.fields[row1][col1].getName(), "K") &&
