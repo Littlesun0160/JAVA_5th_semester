@@ -26,9 +26,19 @@ public class Main {
             System.out.println("Взятые Черные: " + board.getTakeBlack().toString());
             switch (board.getColorGame())
             {
-                case 'w': System.out.println("Ход белых: ");
+                case 'w':
+                    if (board.isCheck('w'))
+                    {
+                        System.out.println("Объявлен шах белым!");
+                    };
+                    System.out.println("Ход белых: ");
                 break;
-                case 'b': System.out.println("Ход черных: ");
+                case 'b':
+                    if (board.isCheck('b'))
+                    {
+                        System.out.println("Объявлен шах белым!");
+                    };
+                    System.out.println("Ход черных: ");
                 break;
             }
 
@@ -40,19 +50,9 @@ public class Main {
             row1 = Integer.parseInt(coords[2]);
             col1 = Integer.parseInt(coords[3]);
 
-            if (board.isCheck())
-            {
-                switch (board.getCheckColor())
-                {
-                    case 'w': System.out.println("Ход белых: ");
-                        break;
-                    case 'b': System.out.println("Ход черных: ");
-                        break;
-                }
-                System.out.println("Объявлен шах ")
-            }
 
-            while (!board.move_figure(row, col, row1, col1))
+
+            while ((!board.canMoveOnBoard(row,col,row1,col1) || !board.move_figure(row, col, row1, col1) || board.isCheck(board.getColorGame())))
             {
                 System.out.println("Такого хода не существует! Измените ход.");
                 switch (board.getColorGame())
