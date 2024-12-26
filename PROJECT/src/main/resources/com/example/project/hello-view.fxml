@@ -9,37 +9,61 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" prefHeight="475.0" prefWidth="608.0" spacing="20.0" style="-fx-background-color: ddeeff; -fx-border-color: darkblue; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.HelloController">
+<VBox alignment="TOP_CENTER" prefHeight="475.0" prefWidth="608.0" spacing="10.0" style="-fx-background-color: ddeeff; -fx-border-color: darkblue; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.HelloController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
-   <Label alignment="TOP_CENTER" text="Дорогой дневник!" textFill="#211675">
-      <font>
-         <Font name="Franklin Gothic Heavy" size="48.0" />
-      </font>
-   </Label>
-   <TableView nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: darkblue; -fx-border-radius: 2; -fx-border-width: 2;">
+   <HBox alignment="TOP_CENTER" prefHeight="68.0" prefWidth="558.0">
+      <children>
+         <Label alignment="TOP_CENTER" text="Дорогой дневник!" textFill="#211675">
+            <font>
+               <Font name="Franklin Gothic Heavy" size="48.0" />
+            </font>
+         </Label>
+         <Button onAction="#UpdateBase" prefHeight="53.0" prefWidth="53.0" style="-fx-background-color: white; -fx-background-radius: 150; -fx-border-color: darkblue; -fx-border-width: 2; -fx-border-radius: 300;" text="↻" textFill="#1446a3">
+            <font>
+               <Font name="Franklin Gothic Heavy Italic" size="24.0" />
+            </font>
+            <HBox.margin>
+               <Insets left="45.0" top="10.0" />
+            </HBox.margin>
+         </Button>
+      </children>
+   </HBox>
+   <TableView fx:id="table" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: darkblue; -fx-border-radius: 2; -fx-border-width: 2;">
      <columns>
-       <TableColumn prefWidth="75.0" text="Дата" />
-       <TableColumn prefWidth="92.00006103515625" text="Запись" />
-         <TableColumn prefWidth="58.39996337890625" />
+         <TableColumn fx:id="idColumn" prefWidth="57.59997630119324" text="ID" />
+       <TableColumn fx:id="dateColumn" prefWidth="166.40002059936523" text="Дата" />
+       <TableColumn fx:id="postColumn" prefWidth="358.3999786376953" text="Запись" />
      </columns>
       <columnResizePolicy>
          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
       </columnResizePolicy>
    </TableView>
-   <HBox alignment="BOTTOM_CENTER" prefHeight="0.0" prefWidth="200.0" spacing="15.0">
+   <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="200.0" spacing="15.0">
       <children>
-        <Button onAction="#OpenPostRedactor" prefHeight="38.0" prefWidth="194.0" style="-fx-background-color: white; -fx-border-color: darkblue; -fx-border-width: 2; -fx-border-radius: 2;" text="Добавить запись" textFill="#1446a3">
-            <font>
-               <Font name="Franklin Gothic Heavy Italic" size="18.0" />
-            </font>
-         </Button>
-         <Button layoutX="10.0" layoutY="10.0" prefHeight="38.0" prefWidth="194.0" style="-fx-background-color: white; -fx-border-color: darkblue; -fx-border-width: 2; -fx-border-radius: 2;" text="Удалить запись" textFill="#1446a3">
+         <VBox prefHeight="77.0" prefWidth="202.0" spacing="5.0">
+            <children>
+              <Button onAction="#OpenPostRedactor" prefHeight="38.0" prefWidth="194.0" style="-fx-background-color: white; -fx-border-color: darkblue; -fx-border-width: 2; -fx-border-radius: 2;" text="Добавить запись" textFill="#1446a3">
+                  <font>
+                     <Font name="Franklin Gothic Heavy Italic" size="18.0" />
+                  </font>
+               </Button>
+               <Button layoutX="10.0" layoutY="10.0" onAction="#EditPost" prefHeight="38.0" prefWidth="194.0" style="-fx-background-color: white; -fx-border-color: darkblue; -fx-border-width: 2; -fx-border-radius: 2;" text="Изменить запись" textFill="#1446a3">
+                  <font>
+                     <Font name="Franklin Gothic Heavy Italic" size="18.0" />
+                  </font>
+               </Button>
+            </children>
+         </VBox>
+         <Button onAction="#DeletePost" prefHeight="38.0" prefWidth="194.0" style="-fx-background-color: white; -fx-border-color: darkred; -fx-border-width: 2; -fx-border-radius: 2;" text="Удалить запись" textFill="#a11515">
             <font>
                <Font name="Franklin Gothic Heavy Italic" size="18.0" />
             </font>
          </Button>
       </children>
+      <VBox.margin>
+         <Insets top="10.0" />
+      </VBox.margin>
    </HBox>
 </VBox>

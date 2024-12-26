@@ -40,7 +40,7 @@
                         <Insets bottom="2.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Button alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" style="-fx-background-color: lightblack; -fx-border-color: darkgreen; -fx-border-width: 2; -fx-border-radius: 2;" text="Добавить фото" textFill="#1c542d">
+                  <Button alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" style="-fx-background-color: ceebce; -fx-border-color: darkgreen; -fx-border-width: 2; -fx-border-radius: 2;" text="Добавить фото" textFill="#1c542d">
                      <font>
                         <Font name="Franklin Gothic Heavy Italic" size="18.0" />
                      </font>
@@ -86,12 +86,12 @@
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="107.0" prefWidth="218.0" spacing="5.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="156.8" style="-fx-background-color: lightblack; -fx-border-color: darkgreen; -fx-border-width: 2; -fx-border-radius: 2;" text="Сохранить" textFill="#1c542d">
+                        <Button mnemonicParsing="false" onAction="#SaveChange" prefHeight="35.0" prefWidth="156.8" style="-fx-background-color: ceebce; -fx-border-color: darkgreen; -fx-border-width: 2; -fx-border-radius: 2;" text="Сохранить" textFill="#1c542d">
                            <font>
                               <Font name="Franklin Gothic Heavy Italic" size="18.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="166.0" style="-fx-background-color: lightblack; -fx-border-radius: 2; -fx-border-width: 2;" text="Удалить" textFill="#521c1c">
+                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="166.0" style="-fx-background-color: ceebce; -fx-border-radius: 2; -fx-border-width: 2;" text="Удалить" textFill="#521c1c">
                            <font>
                               <Font name="Franklin Gothic Heavy Italic" size="18.0" />
                            </font>

@@ -1,5 +1,8 @@
 package com.example.project;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -28,19 +31,20 @@ public class DBAdapter
                     \t"mood"\tTEXT,
                     \tPRIMARY KEY("ID" AUTOINCREMENT)
                     );\
-                    CREATE TABLE IF NOT EXISTS "Moods" (
-                    \t"ID"\tINTEGER NOT NULL UNIQUE,
-                    \t"Mood"\tTEXT NOT NULL,
-                    \tPRIMARY KEY("ID" AUTOINCREMENT)
+                    CREATE TABLE "Moods" (
+                    	\t"ID"\tINTEGER NOT NULL UNIQUE,
+                    	\t"Mood"\t	TEXT NOT NULL,
+                    	\t"Color"\t	INTEGER NOT NULL,
+                    	PRIMARY KEY("ID" AUTOINCREMENT)
                     );""";
             String sql_mood = """
-                    INSERT INTO Moods (ID, Mood)
+                    INSERT INTO Moods (ID, Mood, Color)
                     SELECT *
-                    FROM (VALUES (0, 'Ужасно'),
-                                 (1, 'Плохо'),
-                                 (2, 'Нормально'),
-                                 (3, 'Хорошо'),
-                                 (4, 'Отлично!'))
+                    FROM (VALUES (0, 'Ужасно', Color.DARKVIOLET),
+                                 (1, 'Плохо', Color.VIOLET),
+                                 (2, 'Нормально', Color.BLUE),
+                                 (3, 'Хорошо', Color.LIGHTGREEN),
+                                 (4, 'Отлично!', Color.GREEN))
                     WHERE NOT EXISTS (SELECT 1 FROM Moods);
                     """;
             stmt.execute(sql);
@@ -52,18 +56,18 @@ public class DBAdapter
         }
     }
 
-    void insert_data(String name,String phone) throws SQLException
+    void insert_data(String date,String post, int mood) throws SQLException
     {
-        String sql = "INSERT INTO phonebook(name, phone) VALUES('"+name+"','"+phone+"')";
+        String sql = "INSERT INTO Posts(date, post, mood) VALUES('"+date+"','"+post+"', '"+mood+"')";
         Statement stmt = con.createStatement();
         stmt.execute(sql);
         stmt.close();
         System.out.println("Inserted data");
     }
 
-    ArrayList<Post> select_data() throws SQLException
+    ObservableList<Post> select_data() throws SQLException
     {
-        ArrayList<Post> Posts = new ArrayList<Post>();
+        ObservableList<Post> Posts = FXCollections.observableArrayList();
 
         String sql = "SELECT *  FROM \"Posts\"";
         Statement stmt = con.createStatement();
@@ -87,8 +91,9 @@ public class DBAdapter
         System.out.println("Updated data");
     }
 
-    void delete_data(Integer id) throws SQLException {
-        String sql = "DELETE FROM phonebook WHERE id='"+id+"'";
+    void delete_data(Integer id) throws SQLException
+    {
+        String sql = "DELETE FROM Posts WHERE id='"+id+"'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(sql);
         stmt.close();

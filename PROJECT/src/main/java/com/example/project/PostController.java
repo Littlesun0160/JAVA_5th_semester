@@ -2,7 +2,9 @@ package com.example.project;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -10,12 +12,12 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PostController implements Initializable
@@ -30,6 +32,8 @@ public class PostController implements Initializable
     private Label mood1;
     @FXML
     private Slider slider;
+    private Integer ID_Post = null;
+    HelloController hello;
 
     DBAdapter dbAdapter = new DBAdapter();
 
@@ -70,9 +74,9 @@ public class PostController implements Initializable
 
     }
 
-    public void EditPost (int ID) throws SQLException
+    public void EditPost (int ID, HelloController helloController) throws SQLException
     {
-        ArrayList<Post> Posts = dbAdapter.select_data();
+        ObservableList<Post> Posts = dbAdapter.select_data();
         for (int i=0; i<Posts.size(); i++)
         {
             if (Posts.get(i).getId() == ID)
@@ -82,9 +86,25 @@ public class PostController implements Initializable
                 LocalDate date = LocalDate.parse(Posts.get(i).getDate(), formatter);
                 data.setValue(date);
                 text.setText(Posts.get(i).getPost());
-                foto.setImage(Posts.get(i).getPhoto());
                 slider.setValue(Posts.get(i).getMood());
+                ID_Post = ID;
+                hello = helloController;
+                break;
             }
+        }
+    }
+
+    public void SaveChange() throws SQLException {
+        if (ID_Post == null)
+        {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            String formattedString = data.getValue().format(formatter);
+            dbAdapter.insert_data(formattedString, text.getText(),(int)slider.getValue());
+            Stage stage = (Stage) (text.getScene().getWindow());
+            stage.hide();
+        }
+        else
+        {
         }
     }
 }
