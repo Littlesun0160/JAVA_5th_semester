@@ -88,11 +88,6 @@
                               <Font name="Franklin Gothic Heavy Italic" size="18.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="166.0" style="-fx-background-color: ceebce; -fx-border-radius: 2; -fx-border-width: 2;" text="Удалить" textFill="#521c1c">
-                           <font>
-                              <Font name="Franklin Gothic Heavy Italic" size="18.0" />
-                           </font>
-                        </Button>
                      </children>
                      <opaqueInsets>
                         <Insets top="5.0" />

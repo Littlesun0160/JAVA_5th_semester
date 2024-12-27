@@ -84,7 +84,7 @@ public class DBAdapter
 
     void  update_data(int id, String date,String post, int mood, String photo) throws SQLException
     {
-        String sql = "UPDATE Posts SET date='"+date+"', post='"+post+"', photo='"+photo+"' mood='"+mood+"' WHERE ID='"+id+"'";
+        String sql = "UPDATE Posts SET date='"+date+"', post='"+post+"', photo='"+photo+"', mood='"+mood+"' WHERE ID='"+id+"'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(sql);
         stmt.close();
