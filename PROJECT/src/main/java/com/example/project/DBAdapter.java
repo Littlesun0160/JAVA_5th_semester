@@ -34,17 +34,16 @@ public class DBAdapter
                     CREATE TABLE "Moods" (
                     	\t"ID"\tINTEGER NOT NULL UNIQUE,
                     	\t"Mood"\t	TEXT NOT NULL,
-                    	\t"Color"\t	INTEGER NOT NULL,
                     	PRIMARY KEY("ID" AUTOINCREMENT)
                     );""";
             String sql_mood = """
-                    INSERT INTO Moods (ID, Mood, Color)
+                    INSERT INTO Moods (ID, Mood)
                     SELECT *
-                    FROM (VALUES (0, 'Ужасно', Color.DARKVIOLET),
-                                 (1, 'Плохо', Color.VIOLET),
-                                 (2, 'Нормально', Color.BLUE),
-                                 (3, 'Хорошо', Color.LIGHTGREEN),
-                                 (4, 'Отлично!', Color.GREEN))
+                    FROM (VALUES (0, 'Ужасно'),
+                                 (1, 'Плохо'),
+                                 (2, 'Нормально'),
+                                 (3, 'Хорошо'),
+                                 (4, 'Отлично!'))
                     WHERE NOT EXISTS (SELECT 1 FROM Moods);
                     """;
             stmt.execute(sql);
@@ -56,9 +55,9 @@ public class DBAdapter
         }
     }
 
-    void insert_data(String date,String post, int mood) throws SQLException
+    void insert_data(String date,String post, int mood, String photo) throws SQLException
     {
-        String sql = "INSERT INTO Posts(date, post, mood) VALUES('"+date+"','"+post+"', '"+mood+"')";
+        String sql = "INSERT INTO Posts(date, post, mood, photo) VALUES('"+date+"','"+post+"', '"+mood+"', '"+photo+"')";
         Statement stmt = con.createStatement();
         stmt.execute(sql);
         stmt.close();
@@ -83,8 +82,9 @@ public class DBAdapter
         return Posts;
     }
 
-    void  update_data(Integer id, String name,String phone) throws SQLException {
-        String sql = "UPDATE phonebook SET name='"+name+"', phone='"+phone+"' WHERE id='"+id+"'";
+    void  update_data(int id, String date,String post, int mood, String photo) throws SQLException
+    {
+        String sql = "UPDATE Posts SET date='"+date+"', post='"+post+"', photo='"+photo+"' mood='"+mood+"' WHERE ID='"+id+"'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(sql);
         stmt.close();

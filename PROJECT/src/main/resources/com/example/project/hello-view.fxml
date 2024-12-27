@@ -32,8 +32,8 @@
    </HBox>
    <TableView fx:id="table" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: darkblue; -fx-border-radius: 2; -fx-border-width: 2;">
      <columns>
-         <TableColumn fx:id="idColumn" prefWidth="57.59997630119324" text="ID" />
-       <TableColumn fx:id="dateColumn" prefWidth="166.40002059936523" text="Дата" />
+         <TableColumn fx:id="idColumn" prefWidth="58.40002512931824" text="ID" />
+       <TableColumn fx:id="dateColumn" prefWidth="145.59997177124023" text="Дата" />
        <TableColumn fx:id="postColumn" prefWidth="358.3999786376953" text="Запись" />
      </columns>
       <columnResizePolicy>
